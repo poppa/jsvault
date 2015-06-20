@@ -79,42 +79,42 @@ Date.dayNamesShort = {
 
 /*
   Returns the full month name
-  @param int idx         The numeric value from date.getMonth()
+  @param int monthNo     The numeric value from date.getMonth()
   @param string locale   Optional, locale to use
 */
-Date.getMonthName = function(idx, locale) {
+Date.getMonthName = function(monthNo, locale) {
   locale = getLocale(locale, 'monthNames');
-  return Date.monthNames[locale][idx];
+  return Date.monthNames[locale][monthNo];
 };
 
 /*
   Returns the abbreviated month name
-  @param int idx         The numeric value from date.getMonth()
+  @param int monthNo     The numeric value from date.getMonth()
   @param string locale   Optional, locale to use
 */
-Date.getMonthNameShort = function(idx, locale) {
+Date.getMonthNameShort = function(monthNo, locale) {
   locale = getLocale(locale, 'monthNamesShort');
-  return Date.monthNamesShort[locale][idx];
+  return Date.monthNamesShort[locale][monthNo];
 };
 
 /*
   Returns the day name
-  @param int idx         The numeric value from date.getDay()
+  @param int dayNo       The numeric value from date.getDay(), i.e weekday
   @param string locale   Optional, locale to use
 */
-Date.getDayName = function(idx, locale) {
+Date.getDayName = function(dayNo, locale) {
   locale = getLocale(locale, 'dayNames');
-  return Date.dayNames[locale][idx];
+  return Date.dayNames[locale][dayNo];
 };
 
 /*
   Returns the abbreviated day name
-  @param int idx         The numeric value from date.getDay()
+  @param int dayNo       The numeric value from date.getDay(), i.e weekday
   @param string locale   Optional, locale to use
 */
-Date.getDayNameShort = function(idx, locale) {
+Date.getDayNameShort = function(dayNo, locale) {
   locale = getLocale(locale, 'dayNamesShort');
-  return Date.dayNamesShort[locale][idx];
+  return Date.dayNamesShort[locale][dayNo];
 };
 
 var lang = window.navigator.userLanguage || window.navigator.language;
