@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="date-format.js"></script>
+    <title>Date format test</title>
+    <link rel="stylesheet" type="text/css" href="../example.css">
+  </head>
+  <body>
+    <h1>Date format test</h1>
+
+    <div class="box">
+      <div class='code'><div class='src'><div><span style='color:#006'><b>var</b></span>&#160;date&#160;<span style='color:#00C'>=</span>&#160;<span style='color:#006'><b>new</b></span>&#160;<span style='color:#55C'>Date</span><span style='color:#00C'>(</span><span style='color:#00C'>)</span><span style='color:#00C'>;</span>&#160;&#160;</div><div><span style='color:#55C'>document</span><span style='color:#00C'>.</span>writeln<span style='color:#00C'>(</span>date<span style='color:#00C'>.</span>format<span style='color:#00C'>(</span><span style='color:#070'>&#39;%Y-%m-%d&#39;</span><span style='color:#00C'>)</span><span style='color:#00C'>)</span><span style='color:#00C'>;</span>&#160;</div></div></div>
+<div class='result'><script>
+      var date = new Date();
+      document.writeln(date.format('%Y-%m-%d'));
+      </script></div>
+    </div>
+
+    <div class="box">
+      <div class='code'><div class='src'><div><span style='color:#006'><b>var</b></span>&#160;date&#160;<span style='color:#00C'>=</span>&#160;<span style='color:#006'><b>new</b></span>&#160;<span style='color:#55C'>Date</span><span style='color:#00C'>(</span><span style='color:#00C'>)</span><span style='color:#00C'>;</span>&#160;&#160;</div><div><span style='color:#55C'>document</span><span style='color:#00C'>.</span>writeln<span style='color:#00C'>(</span>date<span style='color:#00C'>.</span>format<span style='color:#00C'>(</span><span style='color:#070'>&#39;%Y-%m-%d&#160;%R&#39;</span><span style='color:#00C'>)</span><span style='color:#00C'>)</span><span style='color:#00C'>;</span>&#160;</div></div></div>
+<div class='result'><script>
+      var date = new Date();
+      document.writeln(date.format('%Y-%m-%d %R'));
+      </script></div>
+    </div>
+
+    <div class="box">
+      <div class='code'><div class='src'><div><span style='color:#55C'>Date</span><span style='color:#00C'>.</span>locale&#160;<span style='color:#00C'>=</span>&#160;<span style='color:#070'>&#39;sv&#39;</span><span style='color:#00C'>;</span>&#160;&#160;</div><div><span style='color:#006'><b>var</b></span>&#160;date&#160;<span style='color:#00C'>=</span>&#160;<span style='color:#006'><b>new</b></span>&#160;<span style='color:#55C'>Date</span><span style='color:#00C'>(</span><span style='color:#00C'>)</span><span style='color:#00C'>;</span>&#160;&#160;</div><div><span style='color:#55C'>document</span><span style='color:#00C'>.</span>writeln<span style='color:#00C'>(</span>date<span style='color:#00C'>.</span>format<span style='color:#00C'>(</span><span style='color:#070'>&#39;%A&#160;den&#160;%d&#160;%B&#160;%Y&#160;klockan&#160;%R&#39;</span><span style='color:#00C'>)</span><span style='color:#00C'>)</span><span style='color:#00C'>;</span>&#160;</div></div></div>
+<div class='result'><script>
+      Date.locale = 'sv';
+      var date = new Date();
+      document.writeln(date.format('%A den %d %B %Y klockan %R'));
+      </script></div>
+    </div>
+
+    <div class="box">
+      <div class='code'><div class='src'><div><span style='color:#55C'>Date</span><span style='color:#00C'>.</span>locale&#160;<span style='color:#00C'>=</span>&#160;<span style='color:#006'><b>null</b></span><span style='color:#00C'>;</span>&#160;&#160;</div><div><span style='color:#006'><b>var</b></span>&#160;date&#160;<span style='color:#00C'>=</span>&#160;<span style='color:#006'><b>new</b></span>&#160;<span style='color:#55C'>Date</span><span style='color:#00C'>(</span><span style='color:#00C'>)</span><span style='color:#00C'>;</span>&#160;&#160;</div><div><span style='color:#55C'>document</span><span style='color:#00C'>.</span>writeln<span style='color:#00C'>(</span><span style='color:#070'>&#39;Current&#160;month:&#160;&#39;</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span style='color:#00C'>+</span>&#160;date<span style='color:#00C'>.</span>format<span style='color:#00C'>(</span><span style='color:#070'>&#39;%B&#39;</span><span style='color:#00C'>)</span>&#160;<span style='color:#00C'>+</span>&#160;<span style='color:#070'>&#39;&#60;br&#62;&#39;</span><span style='color:#00C'>)</span><span style='color:#00C'>;</span>&#160;&#160;</div><div><span style='color:#55C'>document</span><span style='color:#00C'>.</span>writeln<span style='color:#00C'>(</span><span style='color:#070'>&#39;Current&#160;short&#160;month:&#160;&#39;</span>&#160;&#160;&#160;&#160;<span style='color:#00C'>+</span>&#160;date<span style='color:#00C'>.</span>format<span style='color:#00C'>(</span><span style='color:#070'>&#39;%b&#39;</span><span style='color:#00C'>)</span>&#160;<span style='color:#00C'>+</span>&#160;<span style='color:#070'>&#39;&#60;br&#62;&#39;</span><span style='color:#00C'>)</span><span style='color:#00C'>;</span>&#160;&#160;</div><div><span style='color:#55C'>document</span><span style='color:#00C'>.</span>writeln<span style='color:#00C'>(</span><span style='color:#070'>&#39;Current&#160;day&#160;name:&#160;&#39;</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span style='color:#00C'>+</span>&#160;date<span style='color:#00C'>.</span>format<span style='color:#00C'>(</span><span style='color:#070'>&#39;%A&#39;</span><span style='color:#00C'>)</span>&#160;<span style='color:#00C'>+</span>&#160;<span style='color:#070'>&#39;&#60;br&#62;&#39;</span><span style='color:#00C'>)</span><span style='color:#00C'>;</span>&#160;&#160;</div><div><span style='color:#55C'>document</span><span style='color:#00C'>.</span>writeln<span style='color:#00C'>(</span><span style='color:#070'>&#39;Current&#160;short&#160;day&#160;name:&#160;&#39;</span>&#160;<span style='color:#00C'>+</span>&#160;date<span style='color:#00C'>.</span>format<span style='color:#00C'>(</span><span style='color:#070'>&#39;%a&#39;</span><span style='color:#00C'>)</span>&#160;<span style='color:#00C'>+</span>&#160;<span style='color:#070'>&#39;&#60;br&#62;&#39;</span><span style='color:#00C'>)</span><span style='color:#00C'>;</span>&#160;</div></div></div>
+<div class='result'><script>
+      Date.locale = null;
+      var date = new Date();
+      document.writeln('Current month: '          + date.format('%B') + '<br>');
+      document.writeln('Current short month: '    + date.format('%b') + '<br>');
+      document.writeln('Current day name: '       + date.format('%A') + '<br>');
+      document.writeln('Current short day name: ' + date.format('%a') + '<br>');
+      </script></div>
+    </div>
+  </body>
+</html>

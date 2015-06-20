@@ -1,0 +1,38 @@
+/*
+  Author: Pontus Östlund <https://profiles.google.com/poppanator>
+
+  Permission to copy, modify, and distribute this source for any legal
+  purpose granted as long as my name is still attached to it. More
+  specifically, the GPL, LGPL and MPL licenses apply to this software.
+*/
+html { margin: 0; padding: 0; }
+body {
+  background: white;
+  font: 120%/1.4 arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 { margin-top: 0; color: #0087cc; font-size: 48px; }
+
+.box {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.src {
+  font-family: monospace;
+  font-size: 18px;
+}
+
+.result {
+  margin-top: 20px;
+  color: #555;
+  border-left: 5px solid #0087cc;
+  padding-left: 12px;
+}
+
+.result:before {
+}
