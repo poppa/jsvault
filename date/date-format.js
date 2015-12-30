@@ -127,12 +127,12 @@ var getLocale = function(locale, which) {
 
 Date.prototype.format = function(format)
 {
-  format += "\0"; // so that we don't peek beyond the end
-  var s = "",
+  format += '\0'; // so that we don't peek beyond the end
+  var s = '',
   len = format.length,
   padzero = function (s) {
     if (s > 9 || s.length >= 2) return s;
-    return "0" + s;
+    return '0' + s;
   },
   getDay = function(wd, short) {
     wd -= 1;
@@ -163,7 +163,7 @@ Date.prototype.format = function(format)
           break;
 
         case 'R':
-          s += padzero(this.getHours()) + ":" + padzero(this.getMinutes());
+          s += padzero(this.getHours()) + ':' + padzero(this.getMinutes());
           break;
 
         case 'H': s += padzero(this.getHours()); break;

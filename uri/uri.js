@@ -183,7 +183,7 @@ window.URI = function(uri) {
     }
 
     return tmp.length && tmp.join('&') || null;
-  }
+  };
 
   /* Turns this object into a full URI
    */
@@ -195,20 +195,20 @@ window.URI = function(uri) {
       this.port = ports[this.scheme];
     }
 
-    var s = "", q = null;
-    if (this.scheme)                    s  = this.scheme + "://";
+    var s = '', q = this.queryString();
+    if (this.scheme)                    s  = this.scheme + '://';
     if (this.username)                  s += this.username;
-    if (this.username && this.password) s += ":";
+    if (this.username && this.password) s += ':';
     if (this.password)                  s += this.password;
-    if (this.username)                  s += "@";
+    if (this.username)                  s += '@';
     if (this.host)                      s += this.host;
-    if (!this.isDefaultPort())          s += ":" + this.port;
+    if (!this.isDefaultPort())          s += ':' + this.port;
     if (this.path)                      s += this.path;
-    if (q = this.queryString())         s += "?" + q;
-    if (this.fragment)                  s += "#" + this.fragment;
+    if (q)                              s += '?' + q;
+    if (this.fragment)                  s += '#' + this.fragment;
 
     return s;
-  }
+  };
 
   var isStandardPort = function(port) {
     for (var name in ports) {

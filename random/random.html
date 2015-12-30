@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript" src="random.js"></script>
+    <script>
+      (function() { 
+        var t, f;
+        window.onload = function() {
+          t = document.getElementById('target');
+          f = document.getElementsByTagName('form')[0];
+
+          f.onsubmit = function() {
+            var incnum  = document.getElementById('ch1').checked;
+            var incspec = document.getElementById('ch2').checked;
+            var excprg  = document.getElementById('ch3').checked;
+            var pwdlen  = document.getElementById('x1').value;
+            var numpwd  = document.getElementById('x2').value;
+            var excstr  = 'iIl';
+
+            if (excprg) {
+              excstr += '{}[]()°§<>||/\\;:';
+            }
+            
+            var s = '';
+
+            for (var i = 0; i < numpwd; i++) {
+              s += '<div>' + 
+                Random.string(pwdlen, Random.ALL, null, excstr)
+                  .replace(/&/g, '&amp;')
+                  .replace(/>/g, '&gt;')
+                  .replace(/</g, '&lt;') +
+              '</div>';
+            }
+
+            t.innerHTML = s;
+
+            return false;
+          };
+        };
+      }());
+    </script>
+    <style type="text/css">
+      html {
+        font-size: 62.5%; 
+      }
+      body {
+        font-size: 1.55rem;
+        font-family: sans-serif;
+      }
+      label {
+        display: block;
+        margin-top: 8px;
+      }
+      fieldset>label:first-child { 
+        margin-top: 0;
+      }
+      label + input {
+        margin-top: 4px;
+      }
+      input {
+        font-size: 100%;
+      }
+      input[type=submit] {
+        margin-top: 12px;
+        display: block;
+      }
+      input[type=number], input[type=submit] {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+      #target {
+        margin-top: 20px;
+      }
+      #target div {
+        padding: 10px;
+        font-family: monospace;
+        background: #d8f6db;
+        border: 1px solid #c3dec6;
+        border-radius: 3px;
+        margin-bottom: 5px;
+        font-size: 18px;
+        color: #819383;
+        letter-spacing: 1px;
+      }
+      form {
+        margin: 0;
+      }
+      fieldset {
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+      legend {
+        font-weight: bold;
+      }
+      .form-group {
+        display: inline-block;
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <form>
+      <fieldset>
+        <legend>Settings</legend>
+        <label for="ch1">
+          <input type="checkbox" name="num" checked="" value="1" id="ch1" />
+          <span>Include numbers</span>
+        </label>
+        <label for="ch2">
+          <input type="checkbox" name="special" checked="" value="1" id="ch2" />
+          <span>Include special characters</span>
+        </label>
+        <label for="ch3">
+          <input type="checkbox" name="excprg" checked="" value="1" id="ch3" />
+          <span>Exclude general programming characters</span>
+        </label>
+        <div class="form-group">
+          <label for="x1">Number of characters</label>
+          <input type="number" step="1" min="4" id="x1" value="8">
+        </div>
+        <div class="form-group">
+          <label for="x2">Number of passwords</label>
+          <input type="number" step="1" min="1" id="x2" value="10">
+        </div>
+        <input type="submit" value="Generate">
+      </fieldset>
+    </form>
+    <div id="target">
+    </div>
+  </body>
+</html>
