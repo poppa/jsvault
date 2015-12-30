@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Type and add: Example</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery.type-and-add.js"></script>
+
+    <style type="text/css">
+      *, *:before, *:after {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+      html {
+        font-size: 62.5%;
+      }
+      body {
+        font-size: 1.55rem;
+        font-family: sans-serif;
+      }
+      #receivers a {
+        text-decoration: none;
+      }
+
+      #receivers {
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 1px;
+        vertical-align: middle;
+      }
+
+      #receivers .selected-item {
+        padding: 6px 10px;
+        display: inline;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        margin-left: 4px;
+        font-size: smaller;
+      }
+
+      #receivers .selected-item:after {
+        font-family: FontAwesome;
+        content: '\f057';
+        margin-left: 6px;
+        color: #a00;
+      }
+
+      #receivers .selected-item:first-child {
+        margin-left: 4px;
+      }
+
+      #receivers .add-element, #receivers input {
+        display: block;
+        padding: 10px;
+        vertical-align: middle;
+        line-height: 1.2;
+      }
+
+      #receivers input {
+        font-size: 100%;
+      }
+      #receivers input:focus {
+        outline: none;
+      }
+
+      #x {
+        margin-top: 15px;
+      }
+
+    </style>
+
+    <script>
+      $(function() {
+
+        var list = [
+          { 'name' : 'Aaron',    'email' : 'aaron@aaron.com' },
+          { 'name' : 'Anna',     'email' : 'anna@anna.com' },
+          { 'name' : 'Brody',    'email' : 'brody@brody.com' },
+          { 'name' : 'Beth',     'email' : 'beth@beth.com' },
+          { 'name' : 'Beatrice', 'email' : 'beatrice@beatrice.com' },
+          { 'name' : 'Caesar',   'email' : 'caesar@caesar.com' },
+          { 'name' : 'Camilla',  'email' : 'camilla@camilla.com' },
+          { 'name' : 'Cleatus',  'email' : 'cleatus@cleatus.com' },
+          { 'name' : 'Daniel',   'email' : 'daniel@daniel.com' },
+          { 'name' : 'Danny',    'email' : 'danny@danny.com' },
+          { 'name' : 'Dave',     'email' : 'dave@dave.com' },
+          { 'name' : 'Deniese',  'email' : 'deniese@deniese.com' },
+          { 'name' : 'Dolly',    'email' : 'dolly@dolly.com' },
+          { 'name' : 'Dorothy',  'email' : 'dorothy@dorothy.com' },
+          { 'name' : 'Duff',     'email' : 'duff@duff.com' },
+          { 'name' : 'Emily',    'email' : 'emily@emily.com' },
+          { 'name' : 'Emma',     'email' : 'emma@emma.com' },
+          { 'name' : 'Eric',     'email' : 'eric@eric.com' },
+          { 'name' : 'Ethan',    'email' : 'ethan@hunt.com' },
+          { 'name' : 'Efraim',   'email' : 'efraim@efraim.com' }
+        ];
+
+        function find(what) {
+          var a = [],
+              re = new RegExp('^' + what, 'i');
+          list.forEach(function(item) {
+            if (item.name.match(re)) {
+              a.push({
+                name:    item.name,
+                email:   item.email,
+                display: item.name,
+                title:   item.name + ' (' + item.email + ')'
+              });
+            }
+          });
+
+          return a;
+        }
+
+        $('[data-type-and-add]').typeAndAdd({
+          searchMinLength: 2,
+          onSearch: function(value, handler) {
+            var rnd = Math.floor(Math.random() * (700 - 50) + 50);
+            // Fake an AJAX call
+            setTimeout(function() {
+              var a = find(value);
+              handler.populatePopup(a);
+            }, rnd);
+          },
+          onRemove: function() {
+            return confirm('Are you sure you want to remove this item?');
+          }
+        });
+
+        $('#list-selections').on('click', function() {
+          var x = $('[data-type-and-add]').typeAndAdd();
+          var h = $.data(x[0], 'typeAndAdd');
+          if (h) {
+            var m;
+            if (h.getSelections().length) {
+              m = 'Your selections are: ';
+              h.getSelections().forEach(function(e) {
+                m += '\n' + e.title;
+              });
+            }
+            else {
+              m = 'No selections yet!';
+            }
+
+            alert(m);
+          }
+          return false;
+        });
+      });
+    </script>
+
+  </head>
+  <body>
+    <div data-type-and-add="" id="receivers">
+      <a class="add-element" href="#" data-type-and-add-placeholder="Type to search..."
+      ><i class="fa fa-search"></i> Click to add...</a>
+    </div>
+
+    <div id="x">
+      <a href="#" id="list-selections">List selections</a>
+    </div>
+  </body>
+</html>

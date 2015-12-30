@@ -37,7 +37,8 @@
     'overflow: hidden;' +
     'text-overflow: ellipsis;' +
     'white-space: nowrap;' +
-    'text-decoration:none' +
+    'text-decoration:none;' +
+    'min-width:180px;' +
   '}' +
   '.sx-container a:focus,.sx-container a:active { background: #f1f1f1; }' +
   '.sx-container a:hover { background: #f1f1f1; }' +
@@ -46,7 +47,7 @@
   var Handler = function(cfg, el) {
     var searcher, aAdd, inp, blur, checkMax,
     spinner, popup, mklink, handler = this, storage = new Storage(),
-    showHideAdd, spinnerShow;
+    showHideAdd, spinnerShow, placeholder;
 
     if (!cssIsSet) {
       cssIsSet = true;
@@ -82,7 +83,14 @@
 
     aAdd = el.find('a');
 
-    inp = $('<input type="text" placeholder="' + aAdd.text() + '" />')
+    if (aAdd.attr('data-type-and-add-placeholder')) {
+      placeholder = aAdd.attr('data-type-and-add-placeholder');
+    }
+    else {
+      placeholder = aAdd.text();
+    }
+
+    inp = $('<input type="text" placeholder="' + placeholder + '" />')
           .css({ border: 'none',  background: 'transparent', display: 'none' })
           .addClass('type-and-find');
     inp[0].noblur = false;
@@ -99,7 +107,7 @@
       if (val.length === 0) {
         popup.close();
       }
-      if (e.ctrlKey === true || val.length < 3)
+      if (e.ctrlKey === true || val.length < cfg.searchMinLength)
         return;
 
       if (e.keyCode < 49
@@ -194,11 +202,13 @@
           clearInterval(this.ival);
 
         this.ival = setTimeout(function() {
+          searcher.isSearching = true;
           cfg.onSearch(value, handler);
         }, 300);
       };
 
       this.abort = function() {
+        searcher.isSearching = false;
         clearInterval(this.ival);
       };
     }());
@@ -280,12 +290,23 @@
 
     this.populatePopup = function(rows) {
       spinner.fadeOut('fast');
-      if (!rows || !rows.length) {
+
+      if (this.isAborted() || !rows || !rows.length) {
         popup.close();
         return;
       }
 
+      searcher.abort();
+
       popup.populate(rows);
+    };
+
+    this.getSelections = function() {
+      return storage.getList();
+    };
+
+    this.isAborted = function() {
+      return searcher.isSearching === false;
     };
 
     this.reset = function() {
@@ -349,16 +370,20 @@
         return a[name] === b[name];
       }
     }
-    else if (t1 === 'function')
+    else if (t1 === 'function') {
       return a.length === b.length;
-    else
+    }
+    else {
       return a === b;
+    }
   };
 
   $.fn.typeAndAdd = function(config) {
     return this.each(function() {
-      var h = new Handler(config, this);
-      $.data(this, 'typeAndAdd', h);
+      if (config) {
+        var h = new Handler(config, this);
+        $.data(this, 'typeAndAdd', h);
+      }
     });
   };
 
