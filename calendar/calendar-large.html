@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Calendar test</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery.calendar.js"></script>
+    <script>
+      $(function() {
+        var events = [{"timestamp":1451718000,"isodate":"2016-01-02","isotime":"2016-01-02 08:00","title":"Pellentesque pellentesque sit"},{"timestamp":1451732400,"isodate":"2016-01-02","isotime":"2016-01-02 12:00","title":"Lacus lacinia ipsum mauris vitae"},{"timestamp":1451746800,"isodate":"2016-01-02","isotime":"2016-01-02 16:00","title":"Dolor urna orci"},{"timestamp":1451811600,"isodate":"2016-01-03","isotime":"2016-01-03 10:00","title":"Lacus amet vitae"},{"timestamp":1451818800,"isodate":"2016-01-03","isotime":"2016-01-03 12:00","title":"Consectetur ut lacus"},{"timestamp":1452164400,"isodate":"2016-01-07","isotime":"2016-01-07 12:00","title":"Vitae orci rhoncus"},{"timestamp":1452171600,"isodate":"2016-01-07","isotime":"2016-01-07 14:00","title":"Vulputate rhoncus vel"},{"timestamp":1452250800,"isodate":"2016-01-08","isotime":"2016-01-08 12:00","title":"Lectus sit eu"},{"timestamp":1452272400,"isodate":"2016-01-08","isotime":"2016-01-08 18:00","title":"Elit donec morbi mauris"},{"timestamp":1452502800,"isodate":"2016-01-11","isotime":"2016-01-11 10:00","title":"Mauris blandit sit a a"},{"timestamp":1452524400,"isodate":"2016-01-11","isotime":"2016-01-11 16:00","title":"Vel donec varius"},{"timestamp":1452582000,"isodate":"2016-01-12","isotime":"2016-01-12 08:00","title":"Id lacinia nibh"},{"timestamp":1452769200,"isodate":"2016-01-14","isotime":"2016-01-14 12:00","title":"Nunc vivamus blandit"},{"timestamp":1452776400,"isodate":"2016-01-14","isotime":"2016-01-14 14:00","title":"Sit nibh accumsan lectus"},{"timestamp":1452776400,"isodate":"2016-01-14","isotime":"2016-01-14 14:00","title":"Mauris rhoncus nisi"},{"timestamp":1452877200,"isodate":"2016-01-15","isotime":"2016-01-15 18:00","title":"Accumsan egestas pellentesque"},{"timestamp":1453114800,"isodate":"2016-01-18","isotime":"2016-01-18 12:00","title":"Lectus proin suscipit"},{"timestamp":1453194000,"isodate":"2016-01-19","isotime":"2016-01-19 10:00","title":"Non id porta"},{"timestamp":1453194000,"isodate":"2016-01-19","isotime":"2016-01-19 10:00","title":"Sodales dictum pellentesque"},{"timestamp":1453208400,"isodate":"2016-01-19","isotime":"2016-01-19 14:00","title":"Orci molestie tempor"},{"timestamp":1453280400,"isodate":"2016-01-20","isotime":"2016-01-20 10:00","title":"Vitae risus metus"},{"timestamp":1453359600,"isodate":"2016-01-21","isotime":"2016-01-21 08:00","title":"Mauris metus sodales non"},{"timestamp":1453474800,"isodate":"2016-01-22","isotime":"2016-01-22 16:00","title":"Sem lectus venenatis"},{"timestamp":1453482000,"isodate":"2016-01-22","isotime":"2016-01-22 18:00","title":"Aliquet amet ut id ut"},{"timestamp":1453640400,"isodate":"2016-01-24","isotime":"2016-01-24 14:00","title":"Egestas ante quam"},{"timestamp":1453705200,"isodate":"2016-01-25","isotime":"2016-01-25 08:00","title":"A turpis vitae"},{"timestamp":1453726800,"isodate":"2016-01-25","isotime":"2016-01-25 14:00","title":"Blandit orci aliquet"},{"timestamp":1453734000,"isodate":"2016-01-25","isotime":"2016-01-25 16:00","title":"Venenatis vehicula blandit ante"},{"timestamp":1453813200,"isodate":"2016-01-26","isotime":"2016-01-26 14:00","title":"Lacus nisi sodales"},{"timestamp":1453813200,"isodate":"2016-01-26","isotime":"2016-01-26 14:00","title":"Lacus sit dictum"},{"timestamp":1453820400,"isodate":"2016-01-26","isotime":"2016-01-26 16:00","title":"Vitae metus augue"},{"timestamp":1453885200,"isodate":"2016-01-27","isotime":"2016-01-27 10:00","title":"Rutrum a elit"},{"timestamp":1454050800,"isodate":"2016-01-29","isotime":"2016-01-29 08:00","title":"Pellentesque lacus risus lectus vel"},{"timestamp":1454072400,"isodate":"2016-01-29","isotime":"2016-01-29 14:00","title":"Tellus auctor dictum ipsum"},{"timestamp":1454137200,"isodate":"2016-01-30","isotime":"2016-01-30 08:00","title":"Nisi orci proin"},{"timestamp":1454166000,"isodate":"2016-01-30","isotime":"2016-01-30 16:00","title":"Vitae nunc nibh"},{"timestamp":1454166000,"isodate":"2016-01-30","isotime":"2016-01-30 16:00","title":"Auctor tempor vel urna lectus"},{"timestamp":1454238000,"isodate":"2016-01-31","isotime":"2016-01-31 12:00","title":"Id consectetur quam"},{"timestamp":1454245200,"isodate":"2016-01-31","isotime":"2016-01-31 14:00","title":"Vulputate orci ex"},{"timestamp":1454482800,"isodate":"2016-02-03","isotime":"2016-02-03 08:00","title":"Nisi lacus eu"},{"timestamp":1454504400,"isodate":"2016-02-03","isotime":"2016-02-03 14:00","title":"Laoreet auctor urna"},{"timestamp":1454749200,"isodate":"2016-02-06","isotime":"2016-02-06 10:00","title":"Egestas proin sit"},{"timestamp":1454778000,"isodate":"2016-02-06","isotime":"2016-02-06 18:00","title":"Rhoncus amet proin"},{"timestamp":1454778000,"isodate":"2016-02-06","isotime":"2016-02-06 18:00","title":"Orci orci a"},{"timestamp":1454828400,"isodate":"2016-02-07","isotime":"2016-02-07 08:00","title":"Rutrum vehicula vel"},{"timestamp":1454828400,"isodate":"2016-02-07","isotime":"2016-02-07 08:00","title":"Eu nunc rhoncus"},{"timestamp":1454857200,"isodate":"2016-02-07","isotime":"2016-02-07 16:00","title":"Auctor auctor sed"},{"timestamp":1454943600,"isodate":"2016-02-08","isotime":"2016-02-08 16:00","title":"Donec varius proin"},{"timestamp":1455022800,"isodate":"2016-02-09","isotime":"2016-02-09 14:00","title":"Proin a ut"},{"timestamp":1455037200,"isodate":"2016-02-09","isotime":"2016-02-09 18:00","title":"Tellus venenatis elit vulputate"},{"timestamp":1455037200,"isodate":"2016-02-09","isotime":"2016-02-09 18:00","title":"Orci ipsum vehicula lorem vitae"},{"timestamp":1455094800,"isodate":"2016-02-10","isotime":"2016-02-10 10:00","title":"Eu lectus rutrum"},{"timestamp":1455102000,"isodate":"2016-02-10","isotime":"2016-02-10 12:00","title":"Vivamus orci laoreet blandit sodales"},{"timestamp":1455123600,"isodate":"2016-02-10","isotime":"2016-02-10 18:00","title":"Fusce eget a auctor"},{"timestamp":1455274800,"isodate":"2016-02-12","isotime":"2016-02-12 12:00","title":"Ante sodales rutrum a lorem"},{"timestamp":1455634800,"isodate":"2016-02-16","isotime":"2016-02-16 16:00","title":"Pellentesque vel vehicula"},{"timestamp":1455706800,"isodate":"2016-02-17","isotime":"2016-02-17 12:00","title":"Turpis aliquet proin"},{"timestamp":1455721200,"isodate":"2016-02-17","isotime":"2016-02-17 16:00","title":"Ante risus quam"},{"timestamp":1455721200,"isodate":"2016-02-17","isotime":"2016-02-17 16:00","title":"Eleifend non nibh"},{"timestamp":1455793200,"isodate":"2016-02-18","isotime":"2016-02-18 12:00","title":"Id augue blandit a ex"},{"timestamp":1455958800,"isodate":"2016-02-20","isotime":"2016-02-20 10:00","title":"Orci eu sem"},{"timestamp":1455958800,"isodate":"2016-02-20","isotime":"2016-02-20 10:00","title":"Auctor a lectus mauris tempus"},{"timestamp":1455987600,"isodate":"2016-02-20","isotime":"2016-02-20 18:00","title":"Sem vel a blandit ipsum"},{"timestamp":1456038000,"isodate":"2016-02-21","isotime":"2016-02-21 08:00","title":"Id diam eu"},{"timestamp":1456052400,"isodate":"2016-02-21","isotime":"2016-02-21 12:00","title":"Sodales risus non"},{"timestamp":1456052400,"isodate":"2016-02-21","isotime":"2016-02-21 12:00","title":"Urna ut eu"},{"timestamp":1456218000,"isodate":"2016-02-23","isotime":"2016-02-23 10:00","title":"Adipiscing tellus nec"},{"timestamp":1456383600,"isodate":"2016-02-25","isotime":"2016-02-25 08:00","title":"Id vivamus vitae id porta"},{"timestamp":1456383600,"isodate":"2016-02-25","isotime":"2016-02-25 08:00","title":"Mauris donec laoreet"},{"timestamp":1456383600,"isodate":"2016-02-25","isotime":"2016-02-25 08:00","title":"Leo a proin vel"},{"timestamp":1456570800,"isodate":"2016-02-27","isotime":"2016-02-27 12:00","title":"Mauris tempus turpis"},{"timestamp":1456570800,"isodate":"2016-02-27","isotime":"2016-02-27 12:00","title":"Nec turpis vel vel"},{"timestamp":1456578000,"isodate":"2016-02-27","isotime":"2016-02-27 14:00","title":"Lorem tempor ex"},{"timestamp":1456650000,"isodate":"2016-02-28","isotime":"2016-02-28 10:00","title":"Vulputate ante maximus at"},{"timestamp":1456902000,"isodate":"2016-03-02","isotime":"2016-03-02 08:00","title":"Sed non ex orci a"},{"timestamp":1457074800,"isodate":"2016-03-04","isotime":"2016-03-04 08:00","title":"Pellentesque ut blandit"},{"timestamp":1457089200,"isodate":"2016-03-04","isotime":"2016-03-04 12:00","title":"Quam eu amet"},{"timestamp":1457110800,"isodate":"2016-03-04","isotime":"2016-03-04 18:00","title":"Vehicula sit nisi"},{"timestamp":1457175600,"isodate":"2016-03-05","isotime":"2016-03-05 12:00","title":"Sit tempus porta"},{"timestamp":1457190000,"isodate":"2016-03-05","isotime":"2016-03-05 16:00","title":"Tempor urna diam"},{"timestamp":1457190000,"isodate":"2016-03-05","isotime":"2016-03-05 16:00","title":"Proin risus ipsum"},{"timestamp":1457247600,"isodate":"2016-03-06","isotime":"2016-03-06 08:00","title":"Lacinia lectus pellentesque"},{"timestamp":1457427600,"isodate":"2016-03-08","isotime":"2016-03-08 10:00","title":"Suscipit pellentesque sit"},{"timestamp":1457773200,"isodate":"2016-03-12","isotime":"2016-03-12 10:00","title":"Lorem a risus donec accumsan"},{"timestamp":1458039600,"isodate":"2016-03-15","isotime":"2016-03-15 12:00","title":"Blandit nec eu rhoncus"},{"timestamp":1458046800,"isodate":"2016-03-15","isotime":"2016-03-15 14:00","title":"Egestas elit non"},{"timestamp":1458118800,"isodate":"2016-03-16","isotime":"2016-03-16 10:00","title":"At nec adipiscing"},{"timestamp":1458126000,"isodate":"2016-03-16","isotime":"2016-03-16 12:00","title":"Ultrices dignissim mauris"},{"timestamp":1458133200,"isodate":"2016-03-16","isotime":"2016-03-16 14:00","title":"Vehicula leo orci"},{"timestamp":1458385200,"isodate":"2016-03-19","isotime":"2016-03-19 12:00","title":"Blandit laoreet vehicula quam nunc"},{"timestamp":1458399600,"isodate":"2016-03-19","isotime":"2016-03-19 16:00","title":"Vulputate ipsum urna"},{"timestamp":1458471600,"isodate":"2016-03-20","isotime":"2016-03-20 12:00","title":"Eu varius quam"},{"timestamp":1458478800,"isodate":"2016-03-20","isotime":"2016-03-20 14:00","title":"Fusce proin tempor"},{"timestamp":1458493200,"isodate":"2016-03-20","isotime":"2016-03-20 18:00","title":"Auctor ut ante dictum"},{"timestamp":1458630000,"isodate":"2016-03-22","isotime":"2016-03-22 08:00","title":"Rutrum eleifend sit"},{"timestamp":1458644400,"isodate":"2016-03-22","isotime":"2016-03-22 12:00","title":"Sem fusce lectus"},{"timestamp":1458910800,"isodate":"2016-03-25","isotime":"2016-03-25 14:00","title":"Vel nisi ultrices leo maximus"},{"timestamp":1458982800,"isodate":"2016-03-26","isotime":"2016-03-26 10:00","title":"Dolor adipiscing vulputate lectus eu"},{"timestamp":1459058400,"isodate":"2016-03-27","isotime":"2016-03-27 08:00","title":"Augue mauris mauris ut nunc"},{"timestamp":1459072800,"isodate":"2016-03-27","isotime":"2016-03-27 12:00","title":"Accumsan auctor quam"},{"timestamp":1459260000,"isodate":"2016-03-29","isotime":"2016-03-29 16:00","title":"Aliquet dolor lacinia"},{"timestamp":1459339200,"isodate":"2016-03-30","isotime":"2016-03-30 14:00","title":"Vivamus accumsan sodales donec"},{"timestamp":1459418400,"isodate":"2016-03-31","isotime":"2016-03-31 12:00","title":"Pellentesque vulputate accumsan"},{"timestamp":1459432800,"isodate":"2016-03-31","isotime":"2016-03-31 16:00","title":"Porta nec sodales"}];
+
+        function getEvents(start, end) {
+          var stime = start.getTime() / 1000;
+          var etime = end.getTime() / 1000;
+          var a = [];
+          events.forEach(function(item) {
+            if (item.timestamp >= stime && item.timestamp <= etime) {
+              a.push(item);
+            }
+          });
+
+          return a;
+        }
+
+        $('.calendar').calendar({
+          showWeeks: true,
+          dayType: 'semi',
+          clickAction: 'dblclick',
+          clickCallback: function(obj, date) {
+            $(obj.getContainer()).next().text('Clicked date: ' + date.toString());
+          },
+          renderCallback: function(obj, date, firstDate, lastDate) {
+            var a = getEvents(firstDate, lastDate);
+
+            a.forEach(function(item) {
+              var td = obj.getTd(item.isodate);
+              var el = $('<div>', { 'class' : 'event' });
+              el.append('<span class="time">' + (item.isotime.split(' ')[1]) + '</span>');
+              el.append('<span class="title">' + item.title + '</span>');
+              td.append(el);
+            });
+
+          }
+        });
+      });
+    </script>
+    <style>
+      html {
+        font-family: sans-serif;
+        font-size: 62.5%;
+      }
+      body {
+        font-size: 1.55rem;
+      }
+
+      .calendar .event {
+        position: relative;
+        text-align: left;
+        font-size: small;
+        padding: 5px;
+        margin-bottom: 2px;
+        background: #e3fff1;
+        border: 1px solid #d9f4e7;
+        border-radius: 3px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        max-width: 120px;
+      }
+
+      .calendar .event .title {
+        margin-left: 5px;
+      }
+
+      .calendar .event .time {
+        opacity: .6;
+      }
+
+      .calendar {
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .poppa-calendar {
+        margin: 0;
+        border: none;
+        border-collapse: collapse;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      .calendar-large .poppa-calendar {
+        width: 100%;
+      }
+
+      .calendar-large .poppa-calendar tbody td {
+        height: 100px;
+        width: 14.3%;
+        max-width: 14.3%;
+        position: relative;
+        vertical-align: top;
+      }
+
+      .calendar-large .poppa-calendar thead th {
+        text-align: right;
+        background: white;
+      }
+
+      .poppa-calendar a { color: purple; text-decoration: none; }
+      .poppa-calendar th, .poppa-calendar td {
+        padding: 10px;
+        line-height: 1;
+        text-align: center;
+      }
+      .poppa-calendar .pdp-nav-container {
+        text-align: center;
+        padding: 0;
+      }
+      .poppa-calendar thead {
+        background: #f1f1f1;
+      }
+      .poppa-calendar thead a {
+        display: inline-block;
+        padding: 5px;
+      }
+      .poppa-calendar .pdp-nav-container, .poppa-calendar .pdp-nav-container td {
+        background: #ddd;
+        border: none;
+      }
+      .poppa-calendar #pdp-nav-container table {
+        border-collapse: collapse;
+        border: none;
+      }
+      .poppa-calendar th, .poppa-calendar td {
+        cursor: default;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+      }
+      .poppa-calendar td.clickable {
+        cursor: pointer;
+      }
+      .poppa-calendar td.clickable:hover .daynum {
+        color: blue;
+      }
+      .poppa-calendar td.week {
+        color: #888;
+        font-size: xx-small;
+        vertical-align: top;
+      }
+      .calendar-large .poppa-calendar td.week {
+        width: 31px;
+      }
+      .poppa-calendar td.othermonth {
+        color: #888;
+        background: #f1f1f1;
+      }
+      .poppa-calendar td.oob {
+        color: #888;
+      }
+
+      .calendar-large .daynum {
+        position: relative;
+        z-index: 1;
+        float: right;
+        margin-top: -10px;
+        margin-right: -10px;
+        padding: 10px;
+        font-size: smaller;
+      }
+
+      .calendar-large .current-day .daynum {
+        background: red;
+        border-radius: 100px;
+        color: white;
+        padding: 5px;
+        top: 5px;
+        right: 5px;
+      }
+
+      .calendar-large select {
+        -webkit-appearance:none;
+        background: transparent;
+        border: none;
+        padding: 0;
+        width: auto;
+        font-size: larger;
+        margin: 0 5px;
+      }
+
+      td.wd-0, td.wd-6 {
+        background: #ffece9;
+      }
+
+      .poppa-calendar .pdp-prev a, .poppa-calendar .pdp-next a {
+        visibility: hidden;
+        padding: 0;
+      }
+
+      .poppa-calendar .pdp-prev a:before, .poppa-calendar .pdp-next a:before {
+        visibility: visible;
+        font-family: FontAwesome;
+        padding: 5px;
+        display: inline-block;
+        font-size: x-large;
+      }
+
+      .poppa-calendar td.historical .daynum {
+        color: #888;
+      }
+
+      .poppa-calendar td.wd-0 .daynum {
+        color: #930;
+      }
+
+      .poppa-calendar .prev-year:before {
+        content: '\f100';
+      }
+      .poppa-calendar .prev-month:before {
+        content: '\f104';
+      }
+      .poppa-calendar .next-year:before {
+        content: '\f101';
+      }
+      .poppa-calendar .next-month:before {
+        content: '\f105';
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <div class="group">
+      <div class="calendar calendar-large" data-calendar-date="2016-01-01"></div>
+      <div class="display"></div>
+    </div>
+  </body>
+</html>

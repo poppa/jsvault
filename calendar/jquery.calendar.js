@@ -53,7 +53,37 @@
     };
   }
 
-  window.PoppaCalendar = function(element, conf, date) {
+  var PC_count = 0;
+
+  /*
+    Creates a new calendar object
+
+    @param HTMLElement element
+     The element to render the calendar in
+
+    @param object conf
+     Configuration object:
+        minDate: Earliest selectable date (YYYY-MM-DD)
+        maxDate: Latest selectable date (YYYY-MM-DD)
+        showWeeks: Display week numbers (default false)
+        dayType:
+          short = display weekdays with two characters (Mo, Tu, We...) (default)
+          semiShort = Mon, Tue, Wed, ...
+          full = Monday, Tuesday, Wednesday, ...
+        clickCallback: function(PoppaCalendar cal, Date date) {}
+          Function to call when a date is clicked. The first argument is the
+          calendar object it self and the second argument is the date that
+          was clicked.
+        clickAction: What event should trigger the clickCallback. Default is
+          'click'. Any jQuery .on(clickAction) that makes sense can be used.
+        renderCallback: function(PoppaCalendar cal, Date date) {}
+          Function to call when the calendar is rendered. Same argument as
+          clickCallback, but the date is the date used to render the calendar.
+
+    @param string date
+     Initial date to render the calendar from. Default is the current day
+  */
+  var PC = function(element, conf, date) {
     if (!conf) conf = {};
 
     if (conf.minDate && (typeof conf.minDate === 'string')) {
@@ -73,7 +103,7 @@
     }
 
     var my = this,
-    calid = window.PoppaCalendar.count++,
+    calid = PC_count++,
     hashkey = 'date' + calid,
     range = {
       from: new Date(),
@@ -118,6 +148,11 @@
     hasMinMaxTime = !!(conf.maxTime || conf.minTime),
     minTime = conf.minTime,
     maxTime = conf.maxTime,
+    dayType = conf.dayType || 'short',
+    days    = dayType !== 'short' ? dayType === 'semi' ?
+                                    PC.config.semiShortDays :
+                                    PC.config.weekDays :
+                          PC.config.shortDays,
 
     getCurrentYear = function() {
       if (currentDate) {
@@ -158,13 +193,13 @@
     moveYear = function(howMany) {
       var tdate = new Date(currentDate);
       tdate.setYear(tdate.getFullYear() + howMany);
-      render(PoppaCalendar.getISO8601Date(tdate));
+      render(PC.getISO8601Date(tdate));
     },
 
     moveMonth = function(howMany) {
       var tdate = new Date(currentDate);
       tdate.setMonth(tdate.getMonth() + howMany);
-      render(PoppaCalendar.getISO8601Date(tdate));
+      render(PC.getISO8601Date(tdate));
     },
 
     selectDate = function(date) {
@@ -174,7 +209,7 @@
     },
 
     normalizeDate = function(date) {
-      var x = date.match(/(\d\d\d\d\-\d\d\-\d\d)\s+(.+)/), 
+      var x = date.match(/(\d\d\d\d\-\d\d\-\d\d)\s+(.+)/),
           y = null,
           i = 0,
           len = 0;
@@ -204,10 +239,10 @@
 
     render = function(date) {
       if (date) {
-        window.PoppaCalendar.hashURL.set(hashkey, date).render();
+        PC.hashURL.set(hashkey, date).render();
       }
       else {
-        window.PoppaCalendar.hashURL.unset(hashkey).render();
+        PC.hashURL.unset(hashkey).render();
       }
 
       var nowDate = new Date(),
@@ -236,8 +271,8 @@
         thead = table.find('thead');
         var ths = thead.find('th');
 
-        for (i = 0; i < PoppaCalendar.config.shortDays.length; i++) {
-          $(ths[i]).text(PoppaCalendar.config.shortDays[i]);
+        for (i = 0; i < days.length; i++) {
+          $(ths[i]).text(days[i]);
         }
 
         var nav = thead.find('.pdp-nav');
@@ -252,28 +287,28 @@
         yearsel.change(function() { swapDate(); });
         monthsel.change(function() { swapDate(); });
 
-        thead.find('a.prev-year').attr('title', PoppaCalendar.config.prevYear)
+        thead.find('a.prev-year').attr('title', PC.config.prevYear)
              .on('click', function()
         {
           moveYear(-1);
           return false;
         });
 
-        thead.find('a.prev-month').attr('title', PoppaCalendar.config.prevMonth)
+        thead.find('a.prev-month').attr('title', PC.config.prevMonth)
              .on('click', function()
         {
           moveMonth(-1);
           return false;
         });
 
-        thead.find('a.next-year').attr('title', PoppaCalendar.config.nextYear)
+        thead.find('a.next-year').attr('title', PC.config.nextYear)
              .on('click', function()
         {
           moveYear(1);
           return false;
         });
 
-        thead.find('a.next-month').attr('title', PoppaCalendar.config.nextMonth)
+        thead.find('a.next-month').attr('title', PC.config.nextMonth)
              .on('click', function()
         {
           moveMonth(1);
@@ -293,11 +328,12 @@
           yt = range.to.getFullYear(),
           opt = null,
           prevDate = null,
-          tmptd = null;
+          tmptd = null,
+          theDay = null;
 
-      for (var x = 0; x < PoppaCalendar.config.months.length; x++) {
+      for (var x = 0; x < PC.config.months.length; x++) {
         opt = $('<option value="' + x + '">' +
-                PoppaCalendar.config.months[x] + '</option>');
+                PC.config.months[x] + '</option>');
 
         if (x == getCurrentMonth())
           opt.attr('selected','selected');
@@ -341,6 +377,7 @@
         for (; rowcount < fdow; rowcount++) {
           prevDate = new Date(prevDate);
           prevDate.setDate(prevDate.getDate()-1);
+          theDay = prevDate.getDay();
           tmptd = $('<td></td>').addClass('othermonth').html(
             '<div class="daynum">' + prevDate.getDate() + '</div>');
 
@@ -348,15 +385,18 @@
             tmptd.addClass('clickable').on(conf.clickAction||'click', clickfun);
           }
 
+          tmptd.addClass('wd-' + theDay);
+
           $.data(tmptd[0], 'date', prevDate);
           tr.prepend(tmptd);
         }
 
-        if (showWeeks)
+        if (showWeeks) {
           tr.prepend('<td class="week">' + firstDay.getWeek() + '</td>');
+        }
       }
 
-      var curdate = PoppaCalendar.getISO8601Date(nowDate);
+      var curdate = PC.getISO8601Date(nowDate);
       rowcount--;
 
       for (i = 1; i <= lastDay.getDate(); i++) {
@@ -376,10 +416,10 @@
         var tdStamp = tdDate.getTime();
         $.data(td[0], 'date', tdDate);
 
-        if (PoppaCalendar.getISO8601Date(tdDate) === curdate) {
+        if (PC.getISO8601Date(tdDate) === curdate) {
           td.addClass('current-day');
         }
-        else if (PoppaCalendar.getISO8601Date(tdDate) < curdate) {
+        else if (PC.getISO8601Date(tdDate) < curdate) {
           td.addClass('historical');
         }
 
@@ -390,6 +430,9 @@
           td.addClass('oob');
         }
 
+        theDay = tdDate.getDay();
+        td.addClass('wd-' + theDay);
+
         tr.append(td);
       }
 
@@ -399,12 +442,15 @@
         for (; rowcount < 7; rowcount++) {
           nextDate = new Date(nextDate);
           nextDate.setDate(nextDate.getDate() + 1);
+          theDay = nextDate.getDay();
           tmptd = $('<td></td>').addClass('othermonth').html(
             '<div class="daynum">' + nextDate.getDate() + '</div>');
 
           if (!conf.otherMonthsNotClickable && isClickable(nextDate.getTime())) {
             tmptd.addClass('clickable').on(conf.clickAction||'click', clickfun);
           }
+
+          tmptd.addClass('wd-' + theDay);
 
           $.data(tmptd[0], 'date', nextDate);
           tr.append(tmptd);
@@ -414,13 +460,13 @@
       tbody.append(tr);
 
       if (conf.renderCallback) {
-        conf.renderCallback(my, date);
+        conf.renderCallback(my, date, firstDay, lastDay);
       }
     }; // Render
 
     this.getTd = function(date) {
       if (typeof date === 'object')
-        date = PoppaCalendar.getISO8601Date(date);
+        date = PC.getISO8601Date(date);
 
       var tds = tbody.find('td'),
       len = tds.length;
@@ -428,7 +474,7 @@
         var td = tds[i],
         tdate = $.data(td, 'date');
 
-        if (tdate && PoppaCalendar.getISO8601Date(tdate) == date)
+        if (tdate && PC.getISO8601Date(tdate) == date)
           return $(td);
       }
 
@@ -443,7 +489,7 @@
       return element;
     };
 
-    var hash = window.PoppaCalendar.hashURL.get();
+    var hash = PC.hashURL.get();
 
     render(hash[hashkey] || date);
 
@@ -453,7 +499,7 @@
     table.show();
   };
 
-  window.PoppaCalendar.getISO8601Date = function(date) {
+  PC.getISO8601Date = function(date) {
     var y = date.getFullYear(),
         m = date.getMonth() + 1,
         d = date.getDate();
@@ -461,7 +507,7 @@
     return y + '-' + (m < 10 ? '0' + m : m) + '-' + (d < 10 ? '0' + d : d);
   };
 
-  window.PoppaCalendar.objectToHash = function(o) {
+  PC.objectToHash = function(o) {
     var a = [];
     for (var name in o)
       a.push(name + '=' + o[name]);
@@ -469,7 +515,7 @@
     return a.length && '#' + a.join('&') || undefined;
   };
 
-  window.PoppaCalendar.parseHash = function() {
+  PC.parseHash = function() {
     var h, m, o = {};
     h = document.location.hash;
 
@@ -488,15 +534,15 @@
     return o;
   };
 
-  window.PoppaCalendar.getShortMonthName = function(month) {
-    return PoppaCalendar.config.shortMonths[month];
+  PC.getShortMonthName = function(month) {
+    return PC.config.shortMonths[month];
   };
 
-  window.PoppaCalendar.getMonthName = function(month) {
-    return PoppaCalendar.config.months[month];
+  PC.getMonthName = function(month) {
+    return PC.config.months[month];
   };
 
-  window.PoppaCalendar.hashURL = (function() {
+  PC.hashURL = (function() {
     var o = {}, tmp1, tmp2, i,
     update = function(intit) {
       var h = document.location.hash;
@@ -535,8 +581,9 @@
 
       append: function(key, val) {
         if (o[key]) {
-          if (!o[key].isArray())
+          if (!o[key].isArray()) {
             o[key] = [o[key]];
+          }
           o[key].push(val);
         }
         else o[key] = val;
@@ -568,40 +615,60 @@
         }
 
         for (name in o) {
-          if (o[name])
+          if (o[name]) {
             t.push(name + '=' + encodeURIComponent(o[name]));
-          else
+          }
+          else {
             t.push(name);
+          }
         }
 
-        if (t.length)
+        if (t.length) {
           document.location.hash = t.join('&');
-        else
+        }
+        else {
           document.location.hash = '_';
+        }
       }
     };
   }());
 
-  window.PoppaCalendar.count = 0;
+  PC.config = {
+    /* Swedish
+    prevMonth:     'föregående månad',
+    prevYear:      'föregående år',
+    nextMonth:     'nästa månad',
+    nextYear:      'nästa år',
+    weekDays:      [ 'måndag','tisdag','onsdag','torsdag','fredag','lördag',
+                     'söndag'],
+    semiShortDays: [ 'mån','tis','ons','tor','fre','lör','sön' ],
+    shortDays:     [ 'må','ti','on','to','fr','lö','sö' ],
+    shortMonths:   [ 'jan','feb','mar','apr','maj','jun','jul','aug','sep',
+                     'okt','nov','dec' ],
+    months:        [ 'januari','februari','mars','april','maj','juni','juli',
+                     'augusti','september','oktober','november','december' ]
+    */
 
-  window.PoppaCalendar.config = {
-    prevMonth:   'föregående månad',
-    prevYear:    'föregående år',
-    nextMonth:   'nästa månad',
-    nextYear:    'nästa år',
-    weekDays:    [ 'måndag','tisdag','onsdag','torsdag','fredag','lördag',
-                   'söndag'],
-    shortDays:   [ 'må','ti','on','to','fr','lö','sö' ],
-    shortMonths: [ 'jan','feb','mar','apr','maj','jun','jul','aug','sep',
-                   'okt','nov','dec' ],
-    months:      [ 'januari','februari','mars','april','maj','juni','juli',
-                   'augusti','september','oktober','november','december' ]
+    prevMonth:     'Previous month',
+    prevYear:      'Previous year',
+    nextMonth:     'Next month',
+    nextYear:      'Next year',
+    weekDays:      [ 'Monday','Tuesday','Wednesday','Thursday','Friday',
+                     'Saturday', 'Sunday'],
+    semiShortDays: [ 'Mon','Tue','Wed','Thu','Fri','Sat','Sun' ],
+    shortDays:     [ 'Mo','Tu','We','Th','Fr','Sa','Su' ],
+    shortMonths:   [ 'jan','feb','mar','apr','may','jun','jul','aug','sep',
+                     'oct','nov','dec' ],
+    months:        [ 'januari','februari','mars','april','may','june','july',
+                     'august','september','october','november','december' ]
   };
+
+  window.PoppaCalendar = PC;
 
   $.fn.calendar = function(conf) {
     return this.each(function() {
       var d = $(this).attr('data-calendar-date');
-      new PoppaCalendar(this, conf, d);
+      new PC(this, conf, d);
     });
   };
 })(jQuery);

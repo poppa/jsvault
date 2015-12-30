@@ -8,7 +8,7 @@
  * specifically, the GPL, LGPL and MPL licenses apply to this software.
  */
 
-/* global Random */
+/* globals Random */
 
 (function(window, Math) {
 'use strict';

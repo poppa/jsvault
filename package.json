@@ -8,10 +8,10 @@
   "copyright": "",
   "devDependencies": {
     "gulp": "^3.9.0",
+    "gulp-babel": "^6.1.1",
     "gulp-eslint": "^1.1.1",
     "gulp-filesize": "0.0.6",
     "gulp-livereload": "^3.8.1",
-    "gulp-newer": "^1.1.0",
     "gulp-plumber": "^1.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.5.1"

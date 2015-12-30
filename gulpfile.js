@@ -6,29 +6,32 @@ var SRC_DIR   = '.';
 /* globals require */
 
 var gulp       = require('gulp'),
+    babel      = require('gulp-babel'),
     rename     = require('gulp-rename'),
     uglify     = require('gulp-uglify'),
     plumber    = require('gulp-plumber'),
-    newer      = require('gulp-newer'),
+    filesize   = require('gulp-filesize'),
     livereload = require('gulp-livereload'),
     esLint     = require('gulp-eslint');
 
-var JS_GLOB = SRC_DIR + '/**/*.js',
-    NOJS_GLOB = '!' + SRC_DIR + '/**/*.min.js';
+var JS_GLOB    = SRC_DIR + '/**/*.js',
+    NOJS_GLOB  = '!' + SRC_DIR + '/**/*.min.js',
+    NOJS_GLOB2 = '!' + SRC_DIR + '/node_modules/**',
+    NOJS_GLOB3 = '!' + SRC_DIR + '/gulpfile.js';
 
 gulp.task('js', function() {
-  return gulp.src([ JS_GLOB, NOJS_GLOB ])
+  return gulp.src([ JS_GLOB, NOJS_GLOB, NOJS_GLOB2, NOJS_GLOB3 ])
     .pipe(plumber())
-    .pipe(newer(SRC_DIR))
-    .pipe(rename({ suffix: '.min.js' }))
-    .pipe(gulp.dest(BUILD_DIR))
-    .pipe(uglify())
+    .pipe(babel())
+    .pipe(uglify({ preserveComments: 'license' }))
+    .pipe(filesize())
+    .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest(BUILD_DIR))
     .pipe(livereload());
 });
 
 gulp.task('lint', function() {
-  return gulp.src([ JS_GLOB, NOJS_GLOB ])
+  return gulp.src([ JS_GLOB, NOJS_GLOB, NOJS_GLOB2 ])
     .pipe(plumber())
     .pipe(esLint({ configFile: 'eslintrc.json' }))
     .pipe(esLint.format());
