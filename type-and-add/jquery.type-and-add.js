@@ -126,6 +126,7 @@
       if (ev.keyCode === 27) { // esc
         inp[0].noblur = false;
         blur();
+        aAdd.focus();
         return;
       }
     });
@@ -162,6 +163,7 @@
                    {
                      handler.remove(this);
                      blur(true);
+                     aAdd.focus();
                    }
 
                    return false;
