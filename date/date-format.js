@@ -129,7 +129,7 @@ Date.prototype.format = function(format)
 {
   format += '\0'; // so that we don't peek beyond the end
   var s = '',
-  len = format.length,
+  len = format.length - 1,
   padzero = function (s) {
     if (s > 9 || s.length >= 2) return s;
     return '0' + s;
