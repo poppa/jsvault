@@ -11,7 +11,6 @@ var gulp       = require('gulp'),
     uglify     = require('gulp-uglify'),
     plumber    = require('gulp-plumber'),
     filesize   = require('gulp-filesize'),
-    livereload = require('gulp-livereload'),
     esLint     = require('gulp-eslint');
 
 var JS_GLOB    = SRC_DIR + '/**/*.js',
@@ -26,8 +25,7 @@ gulp.task('js', function() {
     .pipe(uglify({ preserveComments: 'license' }))
     .pipe(filesize())
     .pipe(rename({ suffix: '.min' }))
-    .pipe(gulp.dest(BUILD_DIR))
-    .pipe(livereload());
+    .pipe(gulp.dest(BUILD_DIR));
 });
 
 gulp.task('lint', function() {
@@ -39,6 +37,5 @@ gulp.task('lint', function() {
 
 gulp.task('default', [ 'lint', 'js' ],
                       function() {
-                        livereload.listen();
                         gulp.watch(JS_GLOB, [ 'lint','js' ]);
                       });

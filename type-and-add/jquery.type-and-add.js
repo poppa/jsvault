@@ -10,10 +10,13 @@
  * specifically, the GPL, LGPL and MPL licenses apply to this software.
  */
 
-(function(window, $) {
+// jshint esversion: 5, undef: true, unused: true
+/* global window, document, jQuery, setTimeout, clearTimeout */
+
+(function(window, document, $) {
   'use strict';
 
-  if ($ == undefined) throw 'jQuery not available';
+  if ($ === undefined) throw 'jQuery not available';
 
   var cssIsSet = false;
   var css =
@@ -45,9 +48,19 @@
   '.sx-container a:last-child { border-bottom: none; }';
 
   var Handler = function(cfg, el) {
-    var searcher, aAdd, inp, blur, checkMax,
-    spinner, popup, mklink, handler = this, storage = new Storage(),
-    showHideAdd, spinnerShow, placeholder;
+    var searcher,
+      aAdd,
+      inp,
+      blur,
+      checkMax,
+      spinner,
+      popup,
+      mklink,
+      handler = this,
+      storage = new Storage(),
+      showHideAdd,
+      spinnerShow,
+      placeholder;
 
     if (!cssIsSet) {
       cssIsSet = true;
@@ -55,14 +68,14 @@
     }
 
     cfg = $.extend({
-      searchDelay: 500,
+      searchDelay:     500,
       searchMinLength: 3,
-      onSearch: function() {},
-      onAdd: function() {},
-      onRemove: function() {},
-      defaultData: null,
-      duplicates: false,
-      max: 0
+      onSearch:        function() {},
+      onAdd:           function() {},
+      onRemove:        function() {},
+      defaultData:     null,
+      duplicates:      false,
+      max:             0
     }, cfg);
 
     el = $(el);
@@ -110,9 +123,9 @@
       if (e.ctrlKey === true || val.length < cfg.searchMinLength)
         return;
 
-      if (e.keyCode < 49
-         && (e.keyCode !== 45 || e.keyCode !== 46) // insert, del
-         && (e.keyCode !== 8))                     // backspace
+      if ((e.keyCode < 49) &&
+          (e.keyCode !== 45 || e.keyCode !== 46) && // insert, del
+          (e.keyCode !== 8))                        // backspace
       {
         return;
       }
@@ -192,7 +205,7 @@
       return lnk;
     };
 
-    searcher = (new function() {
+    var _searcher = function() {
       this.isSearching = false;
       this.ival = 0;
 
@@ -201,7 +214,7 @@
           return;
 
         if (this.ival)
-          clearInterval(this.ival);
+          clearTimeout(this.ival);
 
         this.ival = setTimeout(function() {
           searcher.isSearching = true;
@@ -211,11 +224,13 @@
 
       this.abort = function() {
         searcher.isSearching = false;
-        clearInterval(this.ival);
+        clearTimeout(this.ival);
       };
-    }());
+    };
 
-    popup = new (function() {
+    searcher = new _searcher();
+
+    var _popup = function() {
       var container = $('<div class=\"sx-container\">').hide();
 
       container.insertAfter(inp).click(function(e) {
@@ -266,7 +281,9 @@
 
         inp[0].noblur = true;
       };
-    });
+    };
+
+    popup = new _popup();
 
     showHideAdd = function(trigger) {
       if (checkMax()) {
@@ -396,4 +413,4 @@
     });
   };
 
-}(window, jQuery));
+}(window, document, jQuery));
